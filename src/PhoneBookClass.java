@@ -41,6 +41,7 @@ public class PhoneBookClass {
     public void deleteContact(String contactNameOrNumber){
         phonebookCheck();
         Contact contact = findContact(contactNameOrNumber);
+        if (contact == null)throw new EmptyPhoneBookException("Contact does not exist");
         contacts.remove(contact);
     }
 

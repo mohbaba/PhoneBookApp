@@ -1,65 +1,82 @@
+import Exceptions.EmptyPhoneBookException;
 import org.junit.jupiter.api.AfterEach;
 import  org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import static java.util.Arrays.asList;
 import static org.junit.jupiter.api.Assertions.*;
 
 class PhoneBookClassTest {
-    private PhoneBookClass phoneBookClass;
+    private PhoneBookClass phoneBook;
     private Contact contact;
 
     @BeforeEach
     public void setUp() {
-        phoneBookClass = new PhoneBookClass();
-        phoneBookClass.addContact("Fola","1234567");
-        phoneBookClass.addContact("Abike","2324432");
-        phoneBookClass.addContact("bEEJAY","223233");
-        phoneBookClass.addContact("Dayo","9586945");
+        phoneBook = new PhoneBookClass();
+        phoneBook.addContact("Ola","1234567");
+        phoneBook.addContact("Abike","2324432");
+        phoneBook.addContact("bEEJAY","223233");
+        phoneBook.addContact("Dayo","9586945");
 
 
     }
 
     @AfterEach
     public void tearDown(){
-        phoneBookClass.getContacts().clear();
+        phoneBook.getContacts().clear();
     }
     @Test
     public void testAddContact() {
-        phoneBookClass.addContact("tola","1234543");
-        assertEquals(phoneBookClass.getContacts().getLast(),contact);
+        phoneBook.addContact("Baba","1234543");
         int numberOfContacts = 5;
-        assertEquals(numberOfContacts, phoneBookClass.getContacts().size());
+        assertEquals(numberOfContacts, phoneBook.getContacts().size());
     }
 
     @Test
     public void deleteContact() {
-        phoneBookClass.deleteContact("9586945");
-        assertEquals(3,phoneBookClass.getContacts().size());
+        phoneBook.deleteContact("9586945");
+        assertEquals(3, phoneBook.getContacts().size());
 
-        phoneBookClass.deleteContact("beejay");
-        assertEquals(2,phoneBookClass.getContacts().size());
+        phoneBook.deleteContact("bEEJAY");
+        assertEquals(2, phoneBook.getContacts().size());
 
     }
 
     @Test
     public void testGetContacts() {
-        assertEquals(4,phoneBookClass.getContacts().size());
+        assertEquals(4, phoneBook.getContacts().size());
     }
 
     @Test
-    void editContact() {
+    public void testFindContactThatExists() {
+        assertNotNull(phoneBook.findContact("Abike"));
+        assertNotNull(phoneBook.findContact("223233"));
     }
 
     @Test
-    void testEditContact() {
+    public void testFindContactThatDoesNotExist() {
+        assertNull(phoneBook.findContact("fake"));
+    }
+
+
+    @Test
+    public void testDeleteContact_ThatDoesNotExists() {
+        assertThrows(EmptyPhoneBookException.class, () -> phoneBook.deleteContact("Nonexistent"));
     }
 
     @Test
-    void testCheckPhoneNumber() {
+    public void testEditContactName() {
+        phoneBook.editContactName("Dayo", "OmoAkin");
+        assertEquals("OmoAkin", phoneBook.findContact("OmoAkin").getName());
+    }
 
+    @Test
+    public void testEditContactNumber() {
+        phoneBook.editContactNumber("9876543210", "Abike");
+        assertEquals("9876543210", phoneBook.findContact("Abike").getPhoneNumber());
+    }
+
+    @Test
+    public void testIsPhoneBookEmpty() {
+        assertFalse(phoneBook.isPhoneBookEmpty());
     }
 }
