@@ -8,13 +8,7 @@ public class PhoneBookClass {
 
 
 
-    public void displayMenu(){
-        System.out.println("1.Add Contact");
-        System.out.println("2.Delete Contact");
-        System.out.println("3.Display Contacts list ");
-        System.out.println("4.Edit Contact Info");
-        System.out.println("Select any option (1-4 )");
-    }
+
 
     public void addContact(String name, String phoneNumber){
         contacts.add(new Contact(name,phoneNumber));

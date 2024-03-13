@@ -2,7 +2,7 @@ import java.util.Scanner;
 
 public class PhoneBookApp {
     private static final PhoneBookClass phoneBook = new PhoneBookClass();
-    private static Scanner scanner = new Scanner(System.in);
+
 
     public static int checkInput(int number){
         while (number < 1 || number > phoneBook.getContacts().size()) {
@@ -10,6 +10,15 @@ public class PhoneBookApp {
             number = scanner.nextInt();
         }
         return number;
+    }
+
+    public static void print(String message){
+        System.out.println(message);
+    }
+
+    public static String input(String prompt){
+        Scanner scanner = new Scanner(System.in);
+        return scanner.next();
     }
     public static void main(String[] args) {
         phoneBook.addContact(new Contact("mohbaba","123456"));
