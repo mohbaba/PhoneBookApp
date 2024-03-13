@@ -1,6 +1,6 @@
 public class Contact {
 //    private int id;
-    private String name;
+    public String name;
     private String phoneNumber;
 
     public Contact(String name, String phoneNumber){
@@ -24,4 +24,6 @@ public class Contact {
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
+
+
 }

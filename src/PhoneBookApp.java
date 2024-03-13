@@ -1,8 +1,9 @@
 import java.util.Scanner;
 
 public class PhoneBookApp {
-    private static PhoneBookClass phoneBook = new PhoneBookClass();
+    private static final PhoneBookClass phoneBook = new PhoneBookClass();
     private static Scanner scanner = new Scanner(System.in);
+
     public static int checkInput(int number){
         while (number < 1 || number > phoneBook.getContacts().size()) {
             System.out.println("Please select number between 1 and " + phoneBook.getContacts().size());
@@ -11,8 +12,10 @@ public class PhoneBookApp {
         return number;
     }
     public static void main(String[] args) {
-
-        while (true) {
+        phoneBook.addContact(new Contact("mohbaba","123456"));
+        //System.out.println("PhoneBookApp.main");
+        System.out.println("PhoneBookApp.main "+phoneBook.getContacts());
+          while (true) {
             phoneBook.displayMenu();
             int input = scanner.nextInt();
             if (input == 0){
@@ -23,7 +26,7 @@ public class PhoneBookApp {
                 case 1:
 
                     System.out.println("Contact Name:");
-                    String name = scanner.nextLine();
+                    String name = scanner.next();
 
                     System.out.println("Phone Number: ");
                     String phoneNumber = scanner.next();

@@ -1,12 +1,10 @@
 import java.util.ArrayList;
-import java.util.Scanner;
+import java.util.Objects;
 
 // Press Shift twice to open the Search Everywhere dialog and type `show whitespaces`,
 // then press Enter. You can now see whitespace characters in your code.
 public class PhoneBookClass {
-    private ArrayList<Contact> contacts = new ArrayList<>();
-    private ArrayList<String> names;
-    private ArrayList<String> phoneNumbers;
+    private final ArrayList<Contact> contacts = new ArrayList<Contact>();
 
 
 
@@ -20,14 +18,33 @@ public class PhoneBookClass {
 
     public void addContact(String name, String phoneNumber){
         contacts.add(new Contact(name,phoneNumber));
-        displayContactsList();
+
     }
 
-    public void deleteContact(int number){
-        if (number <  1 || number > contacts.size()) {
-            throw new ArrayIndexOutOfBoundsException(number+" doesn't exist in phonebook");
+    public void checkPhoneNumber(String phoneNumber){
+        if (phoneNumber.length() > 12 || phoneNumber.length() < 6) {
+            throw new IllegalArgumentException("The number is Incorrect!!! ");
         }
-        contacts.remove(number);
+    }
+
+    public Contact findContact(String name, String number){
+        Contact foundContact = null;
+        for (Contact contact : contacts){
+            if (contact.getName() == name && contact.getPhoneNumber() == number){
+                foundContact = contact;
+            }
+        }
+        return foundContact;
+    }
+
+    public void deleteContact(String contactNameOrNumber){
+        for(int contact = 0; contact < contacts.size(); contact++) {
+            if (contacts.get(contact).getName().equalsIgnoreCase(contactNameOrNumber) || contacts.get(contact).getPhoneNumber().equals(contactNameOrNumber) ){
+                contacts.remove(contact);
+            }
+
+        }
+
 
     }
 
@@ -35,11 +52,18 @@ public class PhoneBookClass {
         return contacts;
     }
 
-    public void editContact(int number,String name){
-        contacts.get(number).setName(name);
+    public void editContact(String name,String newName,String newNumber){
+         for (int contact = 0; contact < contacts.size(); contact++) {
+            if (name.equals(contacts.get(contact).getName())){
+                contacts.get(contact).setName(newName);
+            }
+        }
+
+
     }
 
     public void editContact(String phoneNumber,int number){
+
         contacts.get(number).setPhoneNumber(phoneNumber);
     }
 
