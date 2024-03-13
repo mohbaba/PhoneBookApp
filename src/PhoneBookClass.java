@@ -1,3 +1,5 @@
+import Exceptions.EmptyPhoneBookException;
+
 import java.util.ArrayList;
 import java.util.Objects;
 
@@ -31,7 +33,13 @@ public class PhoneBookClass {
         return foundContact;
     }
 
+    private void phonebookCheck(){
+        if (isPhoneBookEmpty())throw new EmptyPhoneBookException("There are no contacts in the " +
+                "phonebook");
+    }
+
     public void deleteContact(String contactNameOrNumber){
+        phonebookCheck();
         Contact contact = findContact(contactNameOrNumber);
         contacts.remove(contact);
     }
@@ -41,11 +49,13 @@ public class PhoneBookClass {
     }
 
     public void editContactName(String nameOrNumber,String newName){
+        phonebookCheck();
          Contact contact = findContact(nameOrNumber);
          contact.setName(newName);
     }
 
     public void editContactNumber(String phoneNumber,String nameOrNumber){
+        phonebookCheck();
         Contact contact = findContact(nameOrNumber);
         contact.setPhoneNumber(phoneNumber);
 

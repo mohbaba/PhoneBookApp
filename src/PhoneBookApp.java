@@ -25,13 +25,75 @@ public class PhoneBookApp {
         System.out.println("1.Add Contact");
         System.out.println("2.Delete Contact");
         System.out.println("3.Display Contacts list ");
-        System.out.println("4.Edit Contact Info");
+        System.out.println("4.Edit Contact Name");
+        System.out.println("5.Edit Contact Number");
+        System.out.println("6.Exit");
         String userInput = input("Select any option (1-4 )");
         switch (userInput.charAt(0)){
             case '1':
                 addContact();
+                break;
+            case '2':
+                deleteContact();
+                break;
+            case '3':
+                displayContacts();
+                break;
+            case '4':
+                editContactName();
+                break;
+            case '5':
+                editContactNumber();
+                break;
+            case '6':
+                print("Thank you for using this app we hope to see you next time");
+                System.exit(0);
+            default:
+                print("Enter valid input between 1-6");
+                mainMenu();
         }
 
+    }
+
+    private static void editContactNumber(){
+        try {
+            String name = input("Enter the phone number of the contact you'd like to edit: ");
+            String newNumber = input("Enter the new number of the contact: ");
+            phoneBook.editContactNumber(name,newNumber);
+            print("***************************");
+            print("Contact Updated Successfully");
+            print("***************************");
+        }catch (Exception e){
+            print(e.getMessage());
+        }finally {
+            mainMenu();
+        }
+    }
+
+    private static void editContactName() {
+        try{
+            String name = input("Enter the phone number of the contact you'd like to edit: ");
+            String newName = input("Enter the new name of the contact: ");
+            phoneBook.editContactName(name,newName);
+            print("***************************");
+            print("Contact Updated Successfully");
+            print("***************************");
+        }catch (Exception e){
+            print(e.getMessage());
+        }finally {
+            mainMenu();
+        }
+    }
+
+    private static void displayContacts() {
+        try{
+            if (phoneBook.isPhoneBookEmpty())print("Phonebook is currently empty");
+            else phoneBook.displayContactsList();
+        }catch (Exception ignore){
+
+        }finally {
+            mainMenu();
+        }
     }
 
     public static void addContact(){
@@ -39,81 +101,31 @@ public class PhoneBookApp {
             String name = input("Enter name of contact: ");
             String number = input("Enter number of contact: ");
             phoneBook.addContact(name,number);
+            print("***************************");
+            print("Contact Added Successfully");
+            print("***************************");
         }catch (Exception ignore){
 
         }finally {
             mainMenu();
         }
     }
-    public static void main(String[] args) {
-        phoneBook.addContact(new Contact("mohbaba","123456"));
-        //System.out.println("PhoneBookApp.main");
-        System.out.println("PhoneBookApp.main "+phoneBook.getContacts());
-          while (true) {
-            phoneBook.displayMenu();
-            int input = scanner.nextInt();
-            if (input == 0){
-                break;
-            }
 
-            switch (input) {
-                case 1:
-
-                    System.out.println("Contact Name:");
-                    String name = scanner.next();
-
-                    System.out.println("Phone Number: ");
-                    String phoneNumber = scanner.next();
-
-                    phoneBook.addContact(name,phoneNumber);
-
-                    System.out.println();
-                    break;
-                case 2:
-                    phoneBook.displayContactsList();
-                    System.out.println("Select which number to delete:");
-                    int number = scanner.nextInt();
-
-                    number = checkInput(number);
-
-                    System.out.println("Are you sure you want to delete " + phoneBook.getContacts().get(number - 1).getName() + "?");
-                    String reply = scanner.next().toLowerCase();
-                    if (reply.equals("yes")) {
-                        System.out.println("Contact deleted");
-                        phoneBook.deleteContact(number-1);
-                        System.out.println();
-                    } else {
-                        break;
-                    }
-
-                case 3:
-                    phoneBook.displayContactsList();
-                    break;
-
-                case 4:
-                    phoneBook.displayContactsList();
-                    System.out.println("Select number you want to edit");
-                    int answer = scanner.nextInt();
-                    answer = checkInput(answer);
-
-                    System.out.println("Enter 1 to edit name, 2 to edit number and 3 to quit");
-                    int option = scanner.nextInt();
-                    while (option < 1 || option > 3){
-                        System.out.println("Enter 1 to edit name, 2 to edit number and 3 to quit");
-                        option = scanner.nextInt();
-                    }
-                    if (option==1){
-                        System.out.println("Please enter new name");
-                        String newName = scanner.nextLine();
-                        phoneBook.editContact(answer-1,newName);
-                    } else if (option == 2) {
-                        System.out.println("Please enter new number");
-                        String newPhoneNumber = scanner.nextLine();
-                        phoneBook.editContact(newPhoneNumber,answer-1);
-                    } else if (option == 3) {
-                        break;
-                    }
-            }
+    public static void deleteContact(){
+        try {
+            String contactDetails = input("Enter the number of contact you'd like to delete");
+            phoneBook.deleteContact(contactDetails);
+            print("***************************");
+            print("Contact Deleted Successfully");
+            print("***************************");
+        }catch (Exception e){
+            print(e.getMessage());
+        }finally {
+            mainMenu();
         }
+    }
+    public static void main(String[] args) {
+        mainMenu();
+
     }
 }
