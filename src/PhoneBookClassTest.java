@@ -7,7 +7,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class PhoneBookClassTest {
     private PhoneBookClass phoneBook;
-    private Contact contact;
+
 
     @BeforeEach
     public void setUp() {
