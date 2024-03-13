@@ -4,14 +4,6 @@ public class PhoneBookApp {
     private static final PhoneBookClass phoneBook = new PhoneBookClass();
 
 
-    public static int checkInput(int number){
-        while (number < 1 || number > phoneBook.getContacts().size()) {
-            System.out.println("Please select number between 1 and " + phoneBook.getContacts().size());
-            number = scanner.nextInt();
-        }
-        return number;
-    }
-
     public static void print(String message){
         System.out.println(message);
     }
