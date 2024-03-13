@@ -27,10 +27,10 @@ public class PhoneBookClass {
         }
     }
 
-    public Contact findContact(String name, String number){
+    public Contact findContact(String nameOrNumber){
         Contact foundContact = null;
         for (Contact contact : contacts){
-            if (contact.getName() == name && contact.getPhoneNumber() == number){
+            if (contact.getName().equals(nameOrNumber) || contact.getPhoneNumber().equals(nameOrNumber)){
                 foundContact = contact;
             }
         }
@@ -38,35 +38,28 @@ public class PhoneBookClass {
     }
 
     public void deleteContact(String contactNameOrNumber){
-        for(int contact = 0; contact < contacts.size(); contact++) {
-            if (contacts.get(contact).getName().equalsIgnoreCase(contactNameOrNumber) || contacts.get(contact).getPhoneNumber().equals(contactNameOrNumber) ){
-                contacts.remove(contact);
-            }
-
-        }
-
-
+        Contact contact = findContact(contactNameOrNumber);
+        contacts.remove(contact);
     }
 
     public ArrayList<Contact> getContacts() {
         return contacts;
     }
 
-    public void editContact(String name,String newName,String newNumber){
-         for (int contact = 0; contact < contacts.size(); contact++) {
-            if (name.equals(contacts.get(contact).getName())){
-                contacts.get(contact).setName(newName);
-            }
-        }
+    public void editContactName(String nameOrNumber,String newName){
+         Contact contact = findContact(nameOrNumber);
+         contact.setName(newName);
+    }
 
+    public void editContactNumber(String phoneNumber,String nameOrNumber){
+        Contact contact = findContact(nameOrNumber);
+        contact.setPhoneNumber(phoneNumber);
 
     }
 
-    public void editContact(String phoneNumber,int number){
-
-        contacts.get(number).setPhoneNumber(phoneNumber);
+    public boolean isPhoneBookEmpty(){
+        return contacts.isEmpty();
     }
-
     public  void displayContactsList(){
         System.out.printf("S/N%10s%10s%n","Names","Numbers");
         for (int contact = 0; contact < contacts.size() ; contact++) {
