@@ -20,6 +20,31 @@ public class PhoneBookApp {
         Scanner scanner = new Scanner(System.in);
         return scanner.next();
     }
+
+    public static void mainMenu(){
+        System.out.println("1.Add Contact");
+        System.out.println("2.Delete Contact");
+        System.out.println("3.Display Contacts list ");
+        System.out.println("4.Edit Contact Info");
+        String userInput = input("Select any option (1-4 )");
+        switch (userInput.charAt(0)){
+            case '1':
+                addContact();
+        }
+
+    }
+
+    public static void addContact(){
+        try{
+            String name = input("Enter name of contact: ");
+            String number = input("Enter number of contact: ");
+            phoneBook.addContact(name,number);
+        }catch (Exception ignore){
+
+        }finally {
+            mainMenu();
+        }
+    }
     public static void main(String[] args) {
         phoneBook.addContact(new Contact("mohbaba","123456"));
         //System.out.println("PhoneBookApp.main");
